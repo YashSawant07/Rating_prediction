@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gourmet Guide | Restaurant RATING PREDICTION</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        body { 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            max-width: 900px; 
+            margin: 0 auto; 
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: blue;
+            padding: 3rem 0;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 10px 30px rgba(108, 99, 255, 0.2);
+            margin-bottom: 2rem;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #34495e;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        input:focus, select:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 10px;
+        }
+        .checkbox-item {
+            background: #f8f9fa;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .checkbox-item:hover {
+            background: #e9ecef;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            transition: transform 0.2s, background 0.3s;
+            margin-top: 20px;
+        }
+        button:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-section">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold mb-3">predict the rating of your restaurant</h1>
+            <p class="lead">rating that help you to find customers</p>
+        </div>
+    </div>
+    <form method="POST">
+        <div class="form-group">
+            <label>Has Table Booking:</label>
+            <select name="Has Table booking">
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Has Online Delivery:</label>
+            <select name="Has Online delivery">
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Is Delivering Now:</label>
+            <select name="Is delivering now">
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Switch to Order Menu:</label>
+            <select name="Switch to order menu">
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Cost (INR):</label>
+            <input type="number" name="Cost_INR" step="0.01" min="0" required>
+        </div>
+
+        <div class="form-group">
+            <label>Rating Color:</label>
+            <select name="Rating_color" required>
+                <option value="">Select a color</option>
+                <option value="Dark Green">Dark Green</option>
+                <option value="Green">Green</option>
+                <option value="Orange">Orange</option>
+                <option value="Red">Red</option>
+                <option value="White">White</option>
+                <option value="Yellow">Yellow</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Rating Text:</label>
+            <select name="Rating_text" required>
+                <option value="">Select a rating</option>
+                <option value="Average">Average</option>
+                <option value="Excellent">Excellent</option>
+                <option value="Good">Good</option>
+                <option value="Not rated">Not rated</option>
+                <option value="Poor">Poor</option>
+                <option value="Very Good">Very Good</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Price Range:</label>
+            <select name="Price_range" required>
+                <option value="">Select price range</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Cuisines (Select multiple):</label>
+            <div class="checkbox-group">
+                {% for cuisine in [
+                    'Burger', 'Desserts', 'South Indian', 'European', 'Seafood', 'Cafe',
+                    'Finger Food', 'Japanese', 'Street Food', 'Steak', 'Fast Food', 'Beverages',
+                    'Bakery', 'North Indian', 'Asian', 'Mediterranean', 'Salad', 'Biryani',
+                    'Mithai', 'Healthy Food', 'Chinese', 'Sushi', 'Indian', 'Pizza', 'Tea',
+                    'Mexican', 'Mughlai', 'Sandwich', 'Lebanese', 'Ice Cream', 'Continental',
+                    'Raw Meats', 'Italian', 'Thai', 'American'
+                ] %}
+                <div class="checkbox-item">
+                    <input type="checkbox" name="Cuisines" value="{{ cuisine }}" id="cuisine_{{ cuisine }}">
+                    <label for="cuisine_{{ cuisine }}">{{ cuisine }}</label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <button type="submit">Predict Rating</button>
+    </form>
+</body>
+</html>
+</replit_final_file>

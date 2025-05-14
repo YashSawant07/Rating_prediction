@@ -1,0 +1,5 @@
+flask>=3.1.0
+numpy>=2.2.5
+pandas>=2.1.4
+skikit-learn>=1.3.2
+gunicorn==22.0.0
